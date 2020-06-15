@@ -1,5 +1,6 @@
 package com.umbrella.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,7 +16,7 @@ import com.umbrella.enums.CategoriaEnum;
 public class ModeloCarro {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long codigo;
 	private String descricao;
 	@ManyToOne
@@ -23,6 +24,7 @@ public class ModeloCarro {
 	private Fabricante fabricante;
 	@Enumerated(EnumType.STRING)
 	private CategoriaEnum categoria;
+
 
 	public Long getCodigo() {
 		return codigo;
@@ -46,14 +48,6 @@ public class ModeloCarro {
 
 	public void setFabricante(Fabricante fabricante) {
 		this.fabricante = fabricante;
-	}
-
-	public CategoriaEnum getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(CategoriaEnum categoria) {
-		this.categoria = categoria;
 	}
 
 }

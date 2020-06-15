@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @Entity
 public class ApoliceSeguro {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long codigo;
 	@Column
 	private Double valorFranquia;

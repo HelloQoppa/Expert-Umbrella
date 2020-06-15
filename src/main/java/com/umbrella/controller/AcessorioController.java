@@ -3,24 +3,33 @@ package com.umbrella.controller;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import com.umbrella.connection.Connection;
 import com.umbrella.entity.Acessorio;
 
-
 public class AcessorioController {
-	EntityManagerFactory emf;
-	EntityManager em;
+
 	// Query query;
 
-	public AcessorioController() {
-		emf = Persistence.createEntityManagerFactory("aluguel");
-		em = emf.createEntityManager();
+	public void Save(Acessorio acessorio) {
+
+		EntityManager em = new Connection().getConnection();
+
+		try {
+			em.getTransaction().begin();
+			em.persist(acessorio);
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			System.err.println(e);
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
 	}
 
-	public void save(Acessorio acessorio) {
+	public void Update(Acessorio acessorio) {
+		EntityManager em = new Connection().getConnection();
 
 		try {
 			em.getTransaction().begin();
@@ -30,27 +39,46 @@ public class AcessorioController {
 		} catch (Exception e) {
 			System.err.println(e + "erro");
 			em.close();
+		} finally {
+			em.close();
 		}
 
 	}
 
 	public void Delete(Acessorio acessorio) {
+		EntityManager em = new Connection().getConnection();
 
 		try {
 			em.getTransaction().begin();
 			Query query = em
-					.createNamedQuery("DELETE ACESSORIO FROM ACESSORIO WHERE descricao =" + acessorio.getDescricao());
+					.createNamedQuery("DELETE MOTORISTA FROM FABRICANTE WHERE codigo =" + acessorio.getCodigo());
 			query.executeUpdate();
 			em.getTransaction().commit();
 			em.close();
 		} catch (Exception e) {
 			System.err.println(e + "erro");
 			em.close();
+		} finally {
+			em.close();
 		}
 
 	}
 
-	public List<Acessorio> listar() {
+	public void ListById(Long id) {
+		EntityManager em = new Connection().getConnection();
+		Acessorio acessorio = null;
+
+		try {
+			acessorio = em.find(Acessorio.class, id);
+		} catch (Exception e) {
+			System.err.println(e);
+		} finally {
+			em.close();
+		}
+	}
+
+	public List<Acessorio> ListAll() {
+		EntityManager em = new Connection().getConnection();
 		em.getTransaction().begin();
 		List<Acessorio> listaAcessorio = null;
 		listaAcessorio = em.createQuery("FROM Acessorio").getResultList();
@@ -58,5 +86,4 @@ public class AcessorioController {
 		return listaAcessorio;
 
 	}
-
 }

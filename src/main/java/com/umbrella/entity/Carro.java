@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Carro {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long codigo;
 	@Column
 	private String placa;

@@ -10,7 +10,7 @@ import javax.persistence.Id;
 public class Acessorio {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long codigo;
 	@Column
 	private String descricao;

@@ -7,13 +7,17 @@ import com.umbrella.entity.Motorista;
 public class teste {
 	public static void main(String[] args) {
 		Motorista n = new Motorista();
-		/*
-		 * 
-		 * 
-		 * Long codigo = null; n.setCodigo(codigo); String cpf = null; n.setCpf(cpf);
-		 * Date dataNascimento = null; n.setDataNascimento(dataNascimento); String nome
-		 * = "luiz"; n.setNome(nome); String numeroCNH = "1"; n.setNumeroCNH(numeroCNH);
-		 */
+
+		Long codigo = null;
+		n.setCodigo(codigo);
+		String cpf = null;
+		n.setCpf(cpf);
+		Date dataNascimento = null;
+		n.setDataNascimento(dataNascimento);
+		String nome = "luizzzz";
+		n.setNome(nome);
+		String numeroCNH = "wwwwwwwww";
+		n.setNumeroCNH(numeroCNH);
 
 		// n1.setCodigo(2L);
 		// n1.setCpf("14");
@@ -26,11 +30,9 @@ public class teste {
 
 		MotoristaController c = new MotoristaController();
 
-		c.listar();
-
-		for (Motorista m : c.listar()) {
-			System.out.println(m.getNome());
-		}
-
+		c.Save(n);
+		/*
+		 * for (Motorista m : c.ListAll()) { System.out.println(m.getNome()); }
+		 */
 	}
 }

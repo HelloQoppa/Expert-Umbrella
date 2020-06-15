@@ -3,24 +3,33 @@ package com.umbrella.controller;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import com.umbrella.connection.Connection;
 import com.umbrella.entity.Motorista;
 
 public class MotoristaController {
 
-	EntityManagerFactory emf;
-	EntityManager em;
 	// Query query;
 
-	public MotoristaController() {
-		emf = Persistence.createEntityManagerFactory("aluguel");
-		em = emf.createEntityManager();
+	public void Save(Motorista motorista) {
+
+		EntityManager em = new Connection().getConnection();
+
+		try {
+			em.getTransaction().begin();
+			em.persist(motorista);
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			System.err.println(e);
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
 	}
 
-	public void save(Motorista motorista) {
+	public void Update(Motorista motorista) {
+		EntityManager em = new Connection().getConnection();
 
 		try {
 			em.getTransaction().begin();
@@ -30,11 +39,14 @@ public class MotoristaController {
 		} catch (Exception e) {
 			System.err.println(e + "erro");
 			em.close();
+		} finally {
+			em.close();
 		}
 
 	}
 
 	public void Delete(Motorista motorista) {
+		EntityManager em = new Connection().getConnection();
 
 		try {
 			em.getTransaction().begin();
@@ -46,11 +58,27 @@ public class MotoristaController {
 		} catch (Exception e) {
 			System.err.println(e + "erro");
 			em.close();
+		} finally {
+			em.close();
 		}
 
 	}
 
-	public List<Motorista> listar() {
+	public void ListById(Long id) {
+		EntityManager em = new Connection().getConnection();
+		Motorista motorista = null;
+
+		try {
+			motorista = em.find(Motorista.class, id);
+		} catch (Exception e) {
+			System.err.println(e);
+		} finally {
+			em.close();
+		}
+	}
+
+	public List<Motorista> ListAll() {
+		EntityManager em = new Connection().getConnection();
 		em.getTransaction().begin();
 		List<Motorista> listaMotorista = null;
 		listaMotorista = em.createQuery("FROM Motorista").getResultList();

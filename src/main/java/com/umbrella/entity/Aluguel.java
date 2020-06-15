@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 public class Aluguel {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long codigo;
 	private Double valorTotal; // BigDecimal
 	@ManyToOne
